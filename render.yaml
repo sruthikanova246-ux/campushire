@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: campushire
+    runtime: python
+    plan: free
+    buildCommand: python --version
+    startCommand: python server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: DATABASE_PATH
+        value: /tmp/campushire.db

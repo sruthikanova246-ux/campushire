@@ -5,7 +5,8 @@ from urllib.parse import urlparse
 from pathlib import Path
 import json, secrets, hashlib, os, threading, sqlite3
 ROOT=Path(__file__).resolve().parent
-DB=ROOT/"campushire.db"
+DB=Path(os.environ.get("DATABASE_PATH", str(ROOT/"campushire.db")))
+DB.parent.mkdir(parents=True, exist_ok=True)
 LOCK=threading.Lock()
 SEED={
  "users":[
@@ -201,7 +202,8 @@ class Handler(SimpleHTTPRequestHandler):
   self.send_json(404,{"error":"Not found"})
 if __name__=="__main__":
  read_db()
- print("CampusHire running at http://127.0.0.1:8000")
- print("Persistent SQLite database:", DB.name)
- print("Demo accounts: student@campushire.demo / Student@123 | recruiter@campushire.demo / Recruiter@123 | admin@campushire.demo / Admin@123")
- ThreadingHTTPServer(("127.0.0.1",8000),Handler).serve_forever()
+ host=os.environ.get("HOST","0.0.0.0")
+ port=int(os.environ.get("PORT","8000"))
+ print(f"CampusHire running on {host}:{port}")
+ print("SQLite database:", DB)
+ ThreadingHTTPServer((host,port),Handler).serve_forever()

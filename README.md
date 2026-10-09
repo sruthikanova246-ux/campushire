@@ -44,3 +44,12 @@ The seeded student profile (IT, CGPA 8.2) has an eligible **Web Development Inte
 
 ### If the new sample opportunity does not appear
 The server seeds `campushire.db` only on its first run. If you are using an older database, stop the server with Ctrl+C, rename `campushire.db` to `campushire-old.db`, then restart `py server.py` to create fresh seed data. This resets demo data; back up any applications you need first.
+
+
+## Deploy publicly on Render (demo deployment)
+1. Push `server.py`, `index.html`, `style.css`, `script.js`, `README.md`, `render.yaml`, and `.gitignore` to GitHub.
+2. In Render, choose **New → Blueprint**, connect `sruthikanova246-ux/campushire`, and select the repository.
+3. Render reads `render.yaml` and creates the web service. Wait for the deploy to finish, then open the `onrender.com` URL.
+4. The service binds to Render's assigned port. No npm install or external Python package is needed.
+
+**Important demo limitations:** the free configuration uses `/tmp/campushire.db`, which is temporary. Registered accounts and activity can be lost when the instance restarts or redeploys. Do not use real personal information. This demo stores passwords without production-grade hashing and is not suitable for real public users or sensitive data. For a real deployment, use password hashing, secure sessions, rate limiting, and a persistent managed database (or a plan with persistent disk) before inviting real users.

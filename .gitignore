@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+campushire.db
+campushire.db-shm
+campushire.db-wal
+data.json
+.env
